@@ -65,25 +65,6 @@ void ofApp::exit(){
     recExport.removeListener(this,&ofApp::recExportPressed);
 }
 
-/*
-//--------------------------------------------------------------
-void ofApp::frameRateChanged(int & frameRate){
-    passFrameRate = float(frameRate);
-    recDuration();
-}
-
-//--------------------------------------------------------------
-void ofApp::framesChanged(int & frames){
-    passFrames = float(frames);
-    recDuration();
-}
-
-void ofApp::recDuration(){
-    recFrameRate = float(1/float(frameRate)*1000);
-    recFrames = float(frames*recFrameRate);
-    cout << recFrames << endl;
-}
-*/
 //--------------------------------------------------------------
 void ofApp::recRecordPressed(){
     cout<<"Start recording\n";
@@ -130,25 +111,12 @@ void ofApp::draw(){
     
     ofBackground(200);
     
-    //timer 0.04 = 1/25
-    // = 40millis
-    
-    /*
-    if(recLoop){
-        if(!temp.getIsPlaying()){
-        temp.play();
-        }
-    }else{
-        temp.stop();
-    }
-     */
-    
      if(recLoop){
          temp.setLoop(true);
      }else{
          temp.setLoop(false);
      }
-    
+
     
     recFrameRate = float(1/float(frameRate)*1000);
     recFrames = float(frames*recFrameRate);
@@ -167,20 +135,6 @@ void ofApp::draw(){
     }else if(!recording){
         recTimer = ofGetElapsedTimeMillis();
     }
-    /*
-    ofBackground(150,150,150);
-    ofSetColor(20,20,20);
-    ofDrawBitmapString("PRESS a to start recording",20,20);
-    ofDrawBitmapString("PRESS s to stop recording",20,40);
-    if(recording){
-        ofSetCircleResolution(50);
-        ofDrawBitmapString("RECORDING = TRUE",20,80);
-        ofSetColor(255,0,0);
-        ofCircle(400,160,150);
-    }
-    else
-        ofDrawBitmapString("RECORDING = FALSE",20,80);
-    */
     
     if(recording){
         ofSetColor(255,0,0);
@@ -203,9 +157,7 @@ void ofApp::draw(){
     ofEndShape();
     ofPopMatrix();
 
-
-    
-        gui.draw();
+    gui.draw();
     }
 
 //--------------------------------------------------------------
@@ -223,30 +175,13 @@ void ofApp::keyPressed(int key){
             recLoop = false;
         }
     }else if(key == 's'){
-        //"audio_"+ofToString(frames)+"_"+ofToString(frameRate)+".wav"
-        //ofFile f;
-        //f.open(ofToDataPath(tempAudio));
         ofBuffer buf = ofBufferFromFile(tempAudio, false);
-        //string filePath = ofSystemSaveDialog("test", "Choose location for saving sample");
         string tempPath = "audio_" + ofToString(int(frames)) + "_" + ofToString(int(frameRate)) + ".wav";
         ofFileDialogResult saveFileResult = ofSystemSaveDialog(tempPath, "Save your file");
         if (saveFileResult.bSuccess){
             bool fileWritten = ofBufferToFile(saveFileResult.filePath, buf);
-            //processedImages[0].saveImage(saveFileResult.filePath);
         }
         
-        
-        
-        
-        /*
-         cout<<"Stop recording\n";
-         recording=false;
-         audioRecorder.finalize();
-         audioRecorder.close();
-         temp.loadSound(tempAudio);
-         temp.setVolume(0.75f);
-         //temp.setLoop(true);
-         */
     }else if(key == 356){ // left arrow
         int tempFrames = frames;
         frames = tempFrames-1;
