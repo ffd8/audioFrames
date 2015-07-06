@@ -2,18 +2,14 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    
+    // save temp file WITHIN app!
+    ofSetWindowTitle("audioFrames");
+    ofSetDataPathRoot("../Resources/data/");
+    ofSetEscapeQuitsApp(false);
+    
     ofBackground(0,0,0);
     recording=false;
-    
-    //PATH
-    /*
-    string path = "~/Documents/audioFrames/";
-    ofDirectory dir(path);
-    if(!dir.exists()){
-        dir.create(true);
-    }
-    dir.setWriteable(true);
-    */
     
     //AUDIO
     bufferSize = 1024;
@@ -26,8 +22,7 @@ void ofApp::setup(){
     smoothedVol     = 0.0;
     scaledVol		= 0.0;
     ofSoundStreamSetup(0,NUM_CHANNELS,this, SAMPLE_RATE,BUFFER_SIZE,4);
-    //tempAudio = path+"tempAudio.wav";
-    tempAudio = "../temp.wav";
+    tempAudio = "temp.wav";
     
     recTimer = 0;
     recTimerEnd = 0;
@@ -175,7 +170,7 @@ void ofApp::keyPressed(int key){
             recLoop = false;
         }
     }else if(key == 's'){
-        ofBuffer buf = ofBufferFromFile(tempAudio, false);
+        ofBuffer buf = ofBufferFromFile(tempAudio, true);
         string tempPath = "audio_" + ofToString(int(frames)) + "_" + ofToString(int(frameRate)) + ".wav";
         ofFileDialogResult saveFileResult = ofSystemSaveDialog(tempPath, "Save your file");
         if (saveFileResult.bSuccess){
