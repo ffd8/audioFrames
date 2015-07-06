@@ -33,45 +33,45 @@ class ofApp : public ofBaseApp{
         ofSoundPlayer  temp;
         Boolean pausePlayer;
     
-    //AUDIO viz
-    bool useAudio;
-    bool avgAudio;
-    float audioAmp;
+        //AUDIO viz
+        bool useAudio;
+        bool avgAudio;
+        float audioAmp;
 
-    int bufferSize;
-    vector <float> left;
-    vector <float> right;
-    vector <float> volHistory;
-    
-    int 	bufferCounter;
-    int 	drawCounter;
-    
-    float smoothedVol;
-    float scaledVol;
-    
-    ofSoundStream soundStream;
-    
-    //TIMERS
-    float recTimer;
-    float recTimerEnd;
-    float passFrameRate, recFrameRate;
-    float passFrames, recFrames;
-    void recDuration();
-    
-    //GUI
-    ofxPanel gui;
-    ofxIntSlider frames;
-    void framesChanged(int & frames);
-    ofxIntSlider frameRate;
-    void frameRateChanged(int & frameRate);
-    ofxButton recRecord;
-    void recRecordPressed();
-    ofxButton recPlay;
-    ofxToggle recLoop;
-    void recPlayChanged();
-    void recPlayPressed();
-    ofxButton recExport;
-    void recExportPressed();
+        int bufferSize;
+        vector <float> left;
+        vector <float> right;
+        vector <float> volHistory;
+        
+        int 	bufferCounter;
+        int 	drawCounter;
+        
+        float smoothedVol;
+        float scaledVol;
+        
+        ofSoundStream soundStream;
+        
+        //TIMERS
+        float recTimer;
+        float recTimerEnd;
+        float passFrameRate, recFrameRate;
+        float passFrames, recFrames;
+        void recDuration();
+        
+        //GUI
+        ofxPanel gui;
+        ofxIntSlider frames;
+        void framesChanged(int & frames);
+        ofxIntSlider frameRate;
+        void frameRateChanged(int & frameRate);
+        ofxButton recRecord;
+        void recRecordPressed();
+        ofxButton recPlay;
+        ofxToggle recLoop;
+        void recPlayChanged();
+        void recPlayPressed();
+        ofxButton recExport;
+        void recExportPressed();
 
 		
 };

@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    
+        
     // save temp file WITHIN app!
     ofSetWindowTitle("audioFrames");
     ofSetDataPathRoot("../Resources/data/");
@@ -33,7 +33,7 @@ void ofApp::setup(){
     
     
     //GUI
-    gui.setup(); // most of the time you don't need a name
+    gui.setup("Settings"); // most of the time you don't need a name
     gui.add(frames.setup("  FRAMES TO REC", 5, 1, 100));
     gui.add(frameRate.setup("  FRAMES PER SEC", 25, 6, 60));
     gui.add(recRecord.setup("[R]ECORD"));
