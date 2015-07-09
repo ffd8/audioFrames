@@ -79,7 +79,12 @@ void ofApp::recPlayPressed(){
 }
 //--------------------------------------------------------------
 void ofApp::recExportPressed(){
-    
+    ofBuffer buf = ofBufferFromFile(tempAudio, true);
+    string tempPath = "audio_" + ofToString(int(frames)) + "_" + ofToString(int(frameRate)) + ".wav";
+    ofFileDialogResult saveFileResult = ofSystemSaveDialog(tempPath, "Save your file");
+    if (saveFileResult.bSuccess){
+        bool fileWritten = ofBufferToFile(saveFileResult.filePath, buf);
+    }
 }
 
 
@@ -170,12 +175,7 @@ void ofApp::keyPressed(int key){
             recLoop = false;
         }
     }else if(key == 's'){
-        ofBuffer buf = ofBufferFromFile(tempAudio, true);
-        string tempPath = "audio_" + ofToString(int(frames)) + "_" + ofToString(int(frameRate)) + ".wav";
-        ofFileDialogResult saveFileResult = ofSystemSaveDialog(tempPath, "Save your file");
-        if (saveFileResult.bSuccess){
-            bool fileWritten = ofBufferToFile(saveFileResult.filePath, buf);
-        }
+        recExportPressed();
         
     }else if(key == 356){ // left arrow
         int tempFrames = frames;
@@ -188,6 +188,18 @@ void ofApp::keyPressed(int key){
         frames = tempFrames+1;
         if(frames > 100){
             frames = 100;
+        }
+    }else if(key == 359){ // Down arrow
+        int tempFrameRate = frameRate;
+        frameRate = tempFrameRate-1;
+        if(frameRate < 1){
+            frameRate = 1;
+        }
+    }else if(key == 357){ // UP arrow
+        int tempFrameRate = frameRate;
+        frameRate = tempFrameRate+1;
+        if(frameRate > 100){
+            frameRate = 100;
         }
     }
     cout << key << endl;
