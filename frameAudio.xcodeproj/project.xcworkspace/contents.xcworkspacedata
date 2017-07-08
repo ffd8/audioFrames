@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:audioFrames.xcodeproj">
+      location = "self:frameAudio.xcodeproj">
    </FileRef>
 </Workspace>

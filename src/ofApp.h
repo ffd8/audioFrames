@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxLibsndFileRecorder.h"
 #include "ofxGui.h"
-#define NUM_CHANNELS 1
+#define NUM_CHANNELS 2
 #define SAMPLE_RATE 44100
 #define BUFFER_SIZE 1024
 
@@ -24,6 +24,10 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+    
+        //VERSION
+        string CUR_VERSION;
+
     
         //AUDIO
         void audioReceived(float * input, int bufferSize, int nChannels);
@@ -68,10 +72,11 @@ class ofApp : public ofBaseApp{
         void recRecordPressed();
         ofxButton recPlay;
         ofxToggle recLoop;
+        void recExportPressed();
         void recPlayChanged();
         void recPlayPressed();
+        void recLoopChanged();
         ofxButton recExport;
-        void recExportPressed();
 
 		
 };

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9FBE19E6-24F4-460E-9D4B-F0CD38E273F6</string>
+	<key>IDESourceControlProjectName</key>
+	<string>frameAudio</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>BE9C94B20965D307BF6A7B71B5B5F1D43CB4227B</key>
+		<string>https://github.com/ffd8/audioFrames.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>frameAudio.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>BE9C94B20965D307BF6A7B71B5B5F1D43CB4227B</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ffd8/audioFrames.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>BE9C94B20965D307BF6A7B71B5B5F1D43CB4227B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BE9C94B20965D307BF6A7B71B5B5F1D43CB4227B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>audioFrames</string>
+		</dict>
+	</array>
+</dict>
+</plist>

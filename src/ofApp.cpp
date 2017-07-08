@@ -4,7 +4,8 @@
 void ofApp::setup(){
         
     // save temp file WITHIN app!
-    ofSetWindowTitle("audioFrames");
+    CUR_VERSION = "1.1";
+    ofSetWindowTitle("frameAudio - " + CUR_VERSION);
     ofSetDataPathRoot("../Resources/data/");
     ofSetEscapeQuitsApp(false);
     
@@ -12,7 +13,7 @@ void ofApp::setup(){
     recording=false;
     
     //AUDIO
-    bufferSize = 1024;
+    bufferSize = BUFFER_SIZE;
     left.assign(bufferSize, 0.0);
     right.assign(bufferSize, 0.0);
     volHistory.assign(400, 0.0);
@@ -21,7 +22,7 @@ void ofApp::setup(){
     drawCounter		= 0;
     smoothedVol     = 0.0;
     scaledVol		= 0.0;
-    ofSoundStreamSetup(0,NUM_CHANNELS,this, SAMPLE_RATE,BUFFER_SIZE,4);
+    ofSoundStreamSetup(0, NUM_CHANNELS,this, SAMPLE_RATE,BUFFER_SIZE,4);
     tempAudio = "temp.wav";
     
     recTimer = 0;
@@ -34,30 +35,33 @@ void ofApp::setup(){
     
     //GUI
     gui.setup("Settings"); // most of the time you don't need a name
-    gui.add(frames.setup("  FRAMES TO REC", 5, 1, 100));
-    gui.add(frameRate.setup("  FRAMES PER SEC", 25, 6, 60));
+    gui.setPosition(10, ofGetHeight()/3);
+    gui.add(frames.setup("  FRAMES TO REC", 25, 1, 100)); // 100
+    gui.add(frameRate.setup("  FRAMES PER SEC", 25, 1, 100));
     gui.add(recRecord.setup("[R]ECORD"));
     gui.add(recPlay.setup("[P]LAY"));
     gui.add(recLoop.setup("[L]OOP", false));
     gui.add(recExport.setup("[S]AVE"));
     recRecord.addListener(this,&ofApp::recRecordPressed);
-    //recPlay.addListener(this,&ofApp::recPlayPressed);
+    recPlay.addListener(this,&ofApp::recPlayPressed);
     recExport.addListener(this,&ofApp::recExportPressed);
+    //recLoop.addListener(this,&ofApp::recLoopChanged);
     
     //AUDIO
     audioAmp = 1000.00;
     soundStream.listDevices();
     soundStream.setup(this, 0, 2, 44100, bufferSize, 4);
     
-    ofHideCursor();
+    //ofHideCursor();
     
 }
 
 //--------------------------------------------------------------
 void ofApp::exit(){
     recRecord.removeListener(this,&ofApp::recRecordPressed);
-    //recPlay.removeListener(this,&ofApp::recPlayPressed);
+    recPlay.removeListener(this,&ofApp::recPlayPressed);
     recExport.removeListener(this,&ofApp::recExportPressed);
+    //recLoop.removeListener(this,&ofApp::recLoopChanged);
 }
 
 //--------------------------------------------------------------
@@ -75,6 +79,10 @@ void ofApp::recRecordPressed(){
 }
 //--------------------------------------------------------------
 void ofApp::recPlayPressed(){
+    temp.play();
+}
+//--------------------------------------------------------------
+void ofApp::recLoopChanged(){
     temp.play();
 }
 //--------------------------------------------------------------
@@ -113,6 +121,9 @@ void ofApp::draw(){
     
      if(recLoop){
          temp.setLoop(true);
+         if(!temp.getIsPlaying()){
+             temp.play();
+         }
      }else{
          temp.setLoop(false);
      }
@@ -143,14 +154,25 @@ void ofApp::draw(){
     }
     
     ofPushMatrix();
-    ofTranslate(0, ofGetHeight()*.75);
     ofNoFill();
     ofSetLineWidth(2);
+    ofTranslate(0, ofGetHeight()*.25);
     ofBeginShape();
-    for(int i = 0; i < bufferSize/2; i++){
-        float x = ofMap(i,0,bufferSize/2,0,ofGetWidth());
+    for(int i = 0; i < bufferSize; i++){
+        float x = ofMap(i,0,bufferSize,0,ofGetWidth());
         //float x = left[i]*audioAmp;
         float y = left[i]*audioAmp;
+        
+        ofCurveVertex(x, y);
+    }
+    ofEndShape();
+    
+    ofTranslate(0, ofGetHeight()*.5);
+    ofBeginShape();
+    for(int i = 0; i < bufferSize; i++){
+        float x = ofMap(i,0,bufferSize,0,ofGetWidth());
+        //float x = left[i]*audioAmp;
+        float y = right[i]*audioAmp;
         
         ofCurveVertex(x, y);
     }
@@ -250,7 +272,7 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 //--------------------------------------------------------------
 void ofApp::audioReceived(float * input, int bufferSize, int nChannels){
     if(recording){
-        audioRecorder.addSamples(input,bufferSize*nChannels);
+        audioRecorder.addSamples(input,bufferSize);
     }
     
     float curVol = 0.0;
