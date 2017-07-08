@@ -5,7 +5,7 @@ void ofApp::setup(){
         
     // save temp file WITHIN app!
     CUR_VERSION = "1.1";
-    ofSetWindowTitle("frameAudio - " + CUR_VERSION);
+    ofSetWindowTitle("audioFrames - " + CUR_VERSION);
     ofSetDataPathRoot("../Resources/data/");
     ofSetEscapeQuitsApp(false);
     
